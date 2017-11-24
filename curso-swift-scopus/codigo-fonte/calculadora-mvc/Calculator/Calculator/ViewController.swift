@@ -9,7 +9,6 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
     @IBOutlet weak var display: UILabel!
     var userIsTyping: Bool = false
     var manager = CalculatorManager()
