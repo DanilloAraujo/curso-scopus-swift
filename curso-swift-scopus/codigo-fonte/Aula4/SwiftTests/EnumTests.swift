@@ -54,8 +54,8 @@ class EnumTests: XCTestCase {
             case .Fail(let str):
                 XCTAssertNotNil(str)
                 print("Falha")
-            default:
-                break
+            /*default:
+                break*/
             }
         }
         
