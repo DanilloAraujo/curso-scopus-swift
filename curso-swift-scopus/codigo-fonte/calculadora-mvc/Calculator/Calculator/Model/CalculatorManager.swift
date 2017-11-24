@@ -13,6 +13,7 @@ struct CalculatorManager {
         case unaryOperation((Double) -> Double)
         case binaryOperation((Double, Double) -> Double)
         case percent ((Double, Double) -> Double)
+        case constants(Double)
         case equals
         case unknow
     }
@@ -36,7 +37,11 @@ struct CalculatorManager {
         "=" : Operation.equals,
         "±" : Operation.unaryOperation({$0 == 0 ? $0 : -$0}),
         "%" : Operation.percent({($0 * $1) / 100}),
-        "√" : Operation.unaryOperation(sqrt)
+        "√" : Operation.unaryOperation(sqrt),
+        "π" : Operation.constants(Double.pi),
+        "e" : Operation.constants(Double.ulpOfOne),
+        "√…": Operation.unaryOperation({pow($0, 1.0/3.0)})
+        
     ]
     
     var result: Double {
@@ -56,9 +61,11 @@ struct CalculatorManager {
             binaryOperationMemory = PreviousBinaryOperation(function: op, firstOperand: self.accumulator)
         case .equals:
             doPreviousBinaryOperation()
+        case .constants(let op):
+            self.accumulator = op
         case .percent(let op):
-            if (binaryOperationMemory?.firstOperand != nil) {
-                self.accumulator = op((binaryOperationMemory?.firstOperand)!, self.accumulator)
+            if let firstOp = binaryOperationMemory?.firstOperand {
+                self.accumulator = op((firstOp), self.accumulator)
             } else {
                 self.accumulator = op((1), self.accumulator)
             }

@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     @IBOutlet weak var display: UILabel!
     var userIsTyping: Bool = false
+    var isNumberZero: Bool = false
     var manager = CalculatorManager()
     
     var displayValue: Double {
@@ -31,10 +32,16 @@ class ViewController: UIViewController {
         let digit = sender.currentTitle!
         if userIsTyping {
             let textDisplay = display.text ?? ""
-            display.text = textDisplay + digit
+            if (textDisplay == "0" && digit == "0") {
+               display.text = digit
+            } else {
+                display.text = textDisplay + digit
+            }
         } else {
-            display.text = digit
-            userIsTyping = true
+            if (digit != "0") {
+                display.text = digit
+                userIsTyping = true
+            }
         }
     }
     
