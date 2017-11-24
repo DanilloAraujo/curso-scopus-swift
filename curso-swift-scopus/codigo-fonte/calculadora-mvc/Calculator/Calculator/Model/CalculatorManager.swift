@@ -12,6 +12,7 @@ struct CalculatorManager {
     enum Operation {
         case unaryOperation((Double) -> Double)
         case binaryOperation((Double, Double) -> Double)
+        case percent ((Double, Double) -> Double)
         case equals
         case unknow
     }
@@ -34,7 +35,7 @@ struct CalculatorManager {
         "÷" : Operation.binaryOperation({$0 / $1}),
         "=" : Operation.equals,
         "±" : Operation.unaryOperation({$0 == 0 ? $0 : -$0}),
-        //"%" : Operation.unaryOperation,
+        "%" : Operation.percent({($0 * $1) / 100}),
         "√" : Operation.unaryOperation(sqrt)
     ]
     
@@ -55,6 +56,12 @@ struct CalculatorManager {
             binaryOperationMemory = PreviousBinaryOperation(function: op, firstOperand: self.accumulator)
         case .equals:
             doPreviousBinaryOperation()
+        case .percent(let op):
+            if (binaryOperationMemory?.firstOperand != nil) {
+                self.accumulator = op((binaryOperationMemory?.firstOperand)!, self.accumulator)
+            } else {
+                self.accumulator = op((1), self.accumulator)
+            }
         default:
             break
         }
