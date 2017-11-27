@@ -19,6 +19,7 @@
 		16ABF1AF1FC8C25F000482D5 /* ExtensionsTeste.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16ABF1AE1FC8C25F000482D5 /* ExtensionsTeste.swift */; };
 		16C44F841FCC94EE0053B79B /* GenericsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C44F831FCC94EE0053B79B /* GenericsTest.swift */; };
 		16C44F861FCC9FCA0053B79B /* OverloadTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C44F851FCC9FCA0053B79B /* OverloadTest.swift */; };
+		16D996931FCCD4BD000698FE /* CuriousityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16D996921FCCD4BD000698FE /* CuriousityTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		16ABF1AE1FC8C25F000482D5 /* ExtensionsTeste.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsTeste.swift; sourceTree = "<group>"; };
 		16C44F831FCC94EE0053B79B /* GenericsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericsTest.swift; sourceTree = "<group>"; };
 		16C44F851FCC9FCA0053B79B /* OverloadTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverloadTest.swift; sourceTree = "<group>"; };
+		16D996921FCCD4BD000698FE /* CuriousityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuriousityTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 		1657FFF81FC89B9F006D55AC /* SwiftTests */ = {
 			isa = PBXGroup;
 			children = (
+				16D996921FCCD4BD000698FE /* CuriousityTests.swift */,
 				16C44F851FCC9FCA0053B79B /* OverloadTest.swift */,
 				16C44F831FCC94EE0053B79B /* GenericsTest.swift */,
 				16A62F0A1FCC89BE00634C77 /* ProtocolTest.swift */,
@@ -295,6 +298,7 @@
 				1657FFFA1FC89B9F006D55AC /* StructTest.swift in Sources */,
 				16ABF1AF1FC8C25F000482D5 /* ExtensionsTeste.swift in Sources */,
 				16C44F861FCC9FCA0053B79B /* OverloadTest.swift in Sources */,
+				16D996931FCCD4BD000698FE /* CuriousityTests.swift in Sources */,
 				16C44F841FCC94EE0053B79B /* GenericsTest.swift in Sources */,
 				16A62F0B1FCC89BE00634C77 /* ProtocolTest.swift in Sources */,
 			);
