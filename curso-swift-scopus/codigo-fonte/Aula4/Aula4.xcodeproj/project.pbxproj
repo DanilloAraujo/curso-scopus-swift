@@ -15,6 +15,7 @@
 		1657FFE91FC8996F006D55AC /* Aula4Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1657FFE81FC8996F006D55AC /* Aula4Tests.swift */; };
 		1657FFFA1FC89B9F006D55AC /* StructTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1657FFF91FC89B9F006D55AC /* StructTest.swift */; };
 		168F0EE61FC8B2E3008E3D67 /* EnumTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 168F0EE51FC8B2E3008E3D67 /* EnumTests.swift */; };
+		16A62F0B1FCC89BE00634C77 /* ProtocolTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A62F0A1FCC89BE00634C77 /* ProtocolTest.swift */; };
 		16ABF1AF1FC8C25F000482D5 /* ExtensionsTeste.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16ABF1AE1FC8C25F000482D5 /* ExtensionsTeste.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		1657FFF91FC89B9F006D55AC /* StructTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructTest.swift; sourceTree = "<group>"; };
 		1657FFFB1FC89B9F006D55AC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		168F0EE51FC8B2E3008E3D67 /* EnumTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumTests.swift; sourceTree = "<group>"; };
+		16A62F0A1FCC89BE00634C77 /* ProtocolTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtocolTest.swift; sourceTree = "<group>"; };
 		16ABF1AE1FC8C25F000482D5 /* ExtensionsTeste.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsTeste.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,6 +125,7 @@
 		1657FFF81FC89B9F006D55AC /* SwiftTests */ = {
 			isa = PBXGroup;
 			children = (
+				16A62F0A1FCC89BE00634C77 /* ProtocolTest.swift */,
 				16ABF1AE1FC8C25F000482D5 /* ExtensionsTeste.swift */,
 				168F0EE51FC8B2E3008E3D67 /* EnumTests.swift */,
 				1657FFF91FC89B9F006D55AC /* StructTest.swift */,
@@ -285,6 +288,7 @@
 				168F0EE61FC8B2E3008E3D67 /* EnumTests.swift in Sources */,
 				1657FFFA1FC89B9F006D55AC /* StructTest.swift in Sources */,
 				16ABF1AF1FC8C25F000482D5 /* ExtensionsTeste.swift in Sources */,
+				16A62F0B1FCC89BE00634C77 /* ProtocolTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
