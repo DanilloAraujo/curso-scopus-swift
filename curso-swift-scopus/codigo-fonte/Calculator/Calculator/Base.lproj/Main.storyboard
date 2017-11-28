@@ -547,18 +547,18 @@
                                 <exclude reference="yBC-Vt-3TM"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="OOP-Ol-p7z"/>
-                                <exclude reference="la2-tr-ABS"/>
-                                <exclude reference="0gm-oF-CAm"/>
-                                <exclude reference="5DV-GX-coT"/>
-                                <exclude reference="Fce-53-aXU"/>
-                                <exclude reference="gUo-TG-Pne"/>
                                 <exclude reference="5Fe-Km-2yu"/>
                                 <exclude reference="iaq-Un-f97"/>
                                 <exclude reference="5s4-NL-MdP"/>
                                 <exclude reference="9Z6-3f-jUn"/>
                                 <exclude reference="EEZ-el-KnW"/>
                                 <exclude reference="KRD-FD-Qq9"/>
+                                <exclude reference="OOP-Ol-p7z"/>
+                                <exclude reference="la2-tr-ABS"/>
+                                <exclude reference="0gm-oF-CAm"/>
+                                <exclude reference="5DV-GX-coT"/>
+                                <exclude reference="Fce-53-aXU"/>
+                                <exclude reference="gUo-TG-Pne"/>
                                 <exclude reference="63I-xO-cN6"/>
                                 <exclude reference="6cf-4g-LMQ"/>
                                 <exclude reference="Rfn-V2-nBG"/>
