@@ -8,7 +8,43 @@
 
 import XCTest
 
+class ClasseLegal {
+    
+    private var value = 1
+    
+    subscript (index: Int) -> Int {
+        get {
+            return value * index;
+        }
+        set {
+            value = newValue
+        }
+    }
+    
+    subscript (indexs: Int...) -> Int {
+        var prod = value
+        for v in indexs {
+            prod *= v
+        }
+        return prod
+    }
+    
+    subscript (key: String, value: Int) -> Int {
+        return (Int(key) ?? 1) * self.value * value
+    }
+}
+
 class PropertyObserves {
+    
+    init() {
+        print("Inicializado \(PropertyObserves.instanceCount)")
+        PropertyObserves.instanceCount += 1
+    }
+    
+    static var instanceCount = 0
+    
+    lazy var instance = PropertyObserves()
+    
     var test = 0
     var value = 0 {
         willSet {
@@ -37,6 +73,33 @@ class CuriousityTests: XCTestCase {
         let v  = PropertyObserves()
         v.value = 1
         XCTAssertEqual(v.test, 3)
+    }
+    
+    func testLazyInstanciate() {
+        let v = PropertyObserves()
+        print(v.instance)
+    }
+    
+    func testOperatorAsFunction() {
+        func arithimetic(v1: Double, v2: Double, op: ((Double, Double) -> Double)) -> Double {
+            return op(v1, v2)
+        }
+        
+        XCTAssertEqual(4, arithimetic(v1: 2, v2: 2, op: +))
+        print(arithimetic(v1: 2, v2: 2, op: +))
+        XCTAssertEqual(4, arithimetic(v1: 6, v2: 2, op: -))
+        print(arithimetic(v1: 6, v2: 2, op: +))
+        XCTAssertEqual(12, arithimetic(v1: 6, v2: 2, op: *))
+        print(arithimetic(v1: 6, v2: 2, op: *))
+        XCTAssertEqual(3, arithimetic(v1: 6, v2: 2, op: /))
+        print(arithimetic(v1: 6, v2: 2, op: /))
+    }
+    
+    func testSubscript() {
+        
+        XCTAssertEqual(4, ClasseLegal()[4])
+        XCTAssertEqual(256, ClasseLegal()[2,2,2,2,2,2,2,2])
+        XCTAssertEqual(4, ClasseLegal()["2",2])
     }
     
 }
