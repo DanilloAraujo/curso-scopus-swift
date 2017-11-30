@@ -12,6 +12,34 @@ public func helloFramework() {
     print("Test")
 }
 
+public func generateIcons(_ maxSections: Int, _ maxRows: Int) -> [Int:[Icon]] {
+    var dict = [Int:[Icon]]()
+    
+    for i in 0..<maxSections {
+        var icons = [Icon]()
+        for _ in 0..<maxRows{
+            let iconName = randomIconName()
+            let icon = Icon(name: iconName, imageName: iconName, description: randomDilmaDescription())
+            icons.append(icon)
+        }
+        dict[i] = icons
+    }
+    return dict
+}
+
+public func generateImages(_ maxSections: Int, _ maxRows: Int) -> [Int:[NetworkImage]] {
+    var dict = [Int:[NetworkImage]]()
+    
+    for i in 0..<maxSections {
+        var images = [NetworkImage]()
+        for _ in 0..<maxRows{
+            let image = NetworkImage(name: randomIconName(), link: randomImageUrl(), description: randomDilmaDescription())
+            images.append(image)
+        }
+        dict[i] = images
+    }
+    return dict
+}
 
 open class Icon {
     public let name: String
@@ -74,4 +102,31 @@ fileprivate func randomIconName() -> String {
 
 fileprivate func randomImageUrl() -> String {
     return "https://picsum.photos/\(arc4random_uniform(900) + 100)/?random"
+}
+
+public func normalizedRamdon() -> Double {
+    return Double(arc4random_uniform(UInt32.max)) / Double(UInt32.max)
+}
+
+extension UIImageView {
+    public func downloadImage(url: URL) {
+        guard let data = try? Data(contentsOf: url) else { return }
+        self.image = UIImage(data: data)
+    }
+}
+
+extension UIImageView {
+    public func downloadImageAsync(url: URL) {
+        URLSession.shared.dataTask(with: url, completionHandler: { [weak self]
+            (data, response, error) in
+            guard error == nil else {
+                print(error ?? "Erro ao realizar o download da imagem.")
+                return
+            }
+            DispatchQueue.main.async { [weak self] in
+                let image = UIImage(data: data!)
+                self?.image = image
+            }
+        }).resume()
+    }
 }
