@@ -12,6 +12,9 @@
 		16526E421FD0C94D002B2DAF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16526E401FD0C94D002B2DAF /* Main.storyboard */; };
 		16526E441FD0C94D002B2DAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 16526E431FD0C94D002B2DAF /* Assets.xcassets */; };
 		16526E471FD0C94D002B2DAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 16526E451FD0C94D002B2DAF /* LaunchScreen.storyboard */; };
+		16526E4F1FD1B2DB002B2DAF /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16526E4E1FD1B2DB002B2DAF /* TabBarViewController.swift */; };
+		16526E511FD1B5EC002B2DAF /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16526E501FD1B5EC002B2DAF /* TableViewController.swift */; };
+		16526E531FD1B71A002B2DAF /* DaliViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16526E521FD1B71A002B2DAF /* DaliViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		16526E431FD0C94D002B2DAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		16526E461FD0C94D002B2DAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		16526E481FD0C94D002B2DAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		16526E4E1FD1B2DB002B2DAF /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		16526E501FD1B5EC002B2DAF /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		16526E521FD1B71A002B2DAF /* DaliViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaliViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +66,9 @@
 				16526E431FD0C94D002B2DAF /* Assets.xcassets */,
 				16526E451FD0C94D002B2DAF /* LaunchScreen.storyboard */,
 				16526E481FD0C94D002B2DAF /* Info.plist */,
+				16526E4E1FD1B2DB002B2DAF /* TabBarViewController.swift */,
+				16526E501FD1B5EC002B2DAF /* TableViewController.swift */,
+				16526E521FD1B71A002B2DAF /* DaliViewController.swift */,
 			);
 			path = MultiplosViewControllers;
 			sourceTree = "<group>";
@@ -137,7 +146,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				16526E3F1FD0C94D002B2DAF /* ViewController.swift in Sources */,
+				16526E4F1FD1B2DB002B2DAF /* TabBarViewController.swift in Sources */,
 				16526E3D1FD0C94D002B2DAF /* AppDelegate.swift in Sources */,
+				16526E511FD1B5EC002B2DAF /* TableViewController.swift in Sources */,
+				16526E531FD1B71A002B2DAF /* DaliViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
