@@ -9,9 +9,10 @@
 import UIKit
 import EventKit
 
-class ViewController: UITableViewController {
+class ViewController: UITableViewController, UISearchBarDelegate {
 
     var selectedItem: (title: String, description: String, date: Date)?
+    lazy var originalList: [(title: String, description: String, date: Date)] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +25,7 @@ class ViewController: UITableViewController {
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        originalList = list
         tableView.reloadData()
     }
     
@@ -68,6 +70,30 @@ class ViewController: UITableViewController {
             list.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            list = originalList
+            self.tableView.reloadData()
+            return
+        }
+        
+        list = []
+        
+        for (title, description, date) in originalList {
+            
+            if (title.range(of: searchText) != nil) {
+                list.append((title, description, date))
+            }
+            
+        }
+        
+        self.tableView.reloadData()
     }
     
 
