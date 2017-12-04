@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewController: UIViewController {
+class NewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var textReminder: UITextView!
     @IBOutlet weak var titleReminder: UITextField!
@@ -16,6 +16,9 @@ class NewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        textReminder.text = "Digite aqui a descricao"
+        textReminder.textColor = UIColor.lightGray
+        titleReminder.becomeFirstResponder()
         // Do any additional setup after loading the view.
     }
     
@@ -29,16 +32,56 @@ class NewController: UIViewController {
     }
     
     @IBAction func save(_ sender: Any) {
-        var dados :[(title: String, description: String, date: Date)] = []
-        dados.append((title: titleReminder.text!, description: textReminder.text, date: datePicker.date))
-        list.append(contentsOf: dados)
-        let alert = UIAlertController(title: "Informacao", message: "Lembrete salvo com sucesso!", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
-            self.navigationController?.popViewController(animated: true)
-        }))
-        self.present(alert, animated: true, completion: nil)
+        if !checkForErrors() {
+            var dados :[(title: String, description: String, date: Date)] = []
+            dados.append((title: titleReminder.text!, description: textReminder.text, date: datePicker.date))
+            list.append(contentsOf: dados)
+            let alert = UIAlertController(title: "Informação", message: "Lembrete salvo com sucesso!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+                self.navigationController?.popViewController(animated: true)
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textReminder.textColor == UIColor.lightGray {
+            textReminder.text = nil
+            textReminder.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textReminder.text.isEmpty {
+            textReminder.text = "Digite aqui a descricao"
+            textReminder.textColor = UIColor.lightGray
+        }
+    }
+    
+    func checkForErrors () -> Bool {
+        var errors = false
+        let title = "Alerta"
+        var message = ""
+        if (titleReminder.text?.isEmpty)! {
+            errors = true
+            message += "Informe o título!"
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+                self.titleReminder.becomeFirstResponder()
+            }))
+            self.present(alert, animated: true, completion: nil)
+            
+        } else if textReminder.text.isEmpty || textReminder.textColor == UIColor.lightGray {
+            errors = true
+            message += "Informe a descrição!"
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
+                self.textReminder.becomeFirstResponder()
+            }))
+            self.present(alert, animated: true, completion: nil)
+        }
+        return errors
+    }
     
     /*
      // MARK: - Navigation
