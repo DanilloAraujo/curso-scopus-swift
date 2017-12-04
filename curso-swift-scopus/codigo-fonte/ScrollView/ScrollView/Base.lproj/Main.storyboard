@@ -67,6 +67,10 @@ Sapien in monti palavris qui num significa nadis i pareci latim.  Casamentiss fa
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="lblText" destination="7Bd-9W-L15" id="0Lp-MS-jBY"/>
+                        <outlet property="scrollView" destination="08z-5S-u3l" id="cV8-Fy-tD0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

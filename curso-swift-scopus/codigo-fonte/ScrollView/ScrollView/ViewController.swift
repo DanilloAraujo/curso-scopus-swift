@@ -7,11 +7,18 @@
 //
 
 import UIKit
+import WebKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var lblText: UILabel!
+    @IBOutlet weak var scrollView: UIScrollView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        scrollView.delegate = self
+        scrollView.minimumZoomScale = 1.0
+        scrollView.maximumZoomScale = 5.0
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -21,5 +28,19 @@ class ViewController: UIViewController {
     }
 
 
+}
+
+extension ViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > scrollView.contentSize.height / 4 {
+            lblText.backgroundColor = UIColor.blue
+        } else {
+            lblText.backgroundColor = UIColor.green
+        }
+    }
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return lblText
+    }
 }
 
