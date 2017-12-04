@@ -8,14 +8,20 @@
 
 import UIKit
 
-class ViewController: UITableViewController, UISearchBarDelegate {
+class ViewController: UITableViewController, UISearchBarDelegate, UIGestureRecognizerDelegate {
 
     var selectedItem: (title: String, description: String, date: Date)?
     lazy var originalList: [(title: String, description: String, date: Date)] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -86,7 +92,7 @@ class ViewController: UITableViewController, UISearchBarDelegate {
         
         for (title, description, date) in originalList {
             
-            if (title.range(of: searchText) != nil) {
+            if (title.uppercased().range(of: searchText.uppercased()) != nil) {
                 list.append((title, description, date))
             }
             

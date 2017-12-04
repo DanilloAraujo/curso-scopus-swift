@@ -8,19 +8,39 @@
 
 import UIKit
 
-class DetailController: UIViewController {
+class DetailController: UIViewController, UIGestureRecognizerDelegate {
 
     var selectedItem: (title: String, description: String, date: Date)?
     
+    @IBOutlet weak var lblDescricao: UILabel!
     @IBOutlet weak var textReminder: UITextView!
     @IBOutlet weak var datePicker: UIDatePicker!
+    
+    @IBAction func slider(_ sender: UISlider) {
+        
+        textReminder.font = UIFont(name: (textReminder.font?.fontName)!, size: CGFloat(sender.value))
+        
+        lblDescricao.font = UIFont(name: (lblDescricao.font?.fontName)!, size: CGFloat(sender.value))
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.view.isUserInteractionEnabled = true
+        self.view.isMultipleTouchEnabled = true
+
+        let gestureRigthSwipte = UISwipeGestureRecognizer(target: self, action: #selector(DetailController.rightSwipe( _ : )))
+
+        gestureRigthSwipte.delegate = self
+        gestureRigthSwipte.direction = UISwipeGestureRecognizerDirection.right
+        self.view.addGestureRecognizer(gestureRigthSwipte)
     }
 
+    @objc func rightSwipe(_ sender : UISwipeGestureRecognizer) {
+        self.tabBarController?.selectedIndex = 0
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

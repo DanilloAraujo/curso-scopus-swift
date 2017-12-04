@@ -19,7 +19,15 @@ class NewController: UIViewController, UITextViewDelegate {
         textReminder.text = "Digite aqui a descricao"
         textReminder.textColor = UIColor.lightGray
         titleReminder.becomeFirstResponder()
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(NewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
         // Do any additional setup after loading the view.
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     override func didReceiveMemoryWarning() {

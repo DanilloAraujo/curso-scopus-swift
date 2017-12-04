@@ -195,13 +195,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Descricao:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R8I-Vn-6zg">
-                                <rect key="frame" x="22" y="86" width="85.5" height="21"/>
+                                <rect key="frame" x="22" y="94" width="85.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jXZ-ka-SFu">
-                                <rect key="frame" x="22" y="129" width="276" height="201"/>
+                                <rect key="frame" x="22" y="137" width="276" height="193"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -213,6 +213,13 @@
                                     <!--2017-12-01 21:56:54 +0000-->
                                 </date>
                             </datePicker>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="17" minValue="10" maxValue="50" translatesAutoresizingMaskIntoConstraints="NO" id="eRo-Zb-kDE">
+                                <rect key="frame" x="-2" y="64" width="322" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="slider:" destination="Vwj-eA-F7h" eventType="valueChanged" id="cox-y5-HTZ"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -222,7 +229,7 @@
                             <constraint firstItem="R8I-Vn-6zg" firstAttribute="leading" secondItem="yeY-nS-IdD" secondAttribute="leading" constant="22" id="QrQ-t5-N3o"/>
                             <constraint firstItem="jXZ-ka-SFu" firstAttribute="top" secondItem="R8I-Vn-6zg" secondAttribute="bottom" constant="22" id="Yti-4m-hJV"/>
                             <constraint firstItem="jXZ-ka-SFu" firstAttribute="leading" secondItem="yeY-nS-IdD" secondAttribute="leading" constant="22" id="btq-My-VYS"/>
-                            <constraint firstItem="R8I-Vn-6zg" firstAttribute="top" secondItem="yeY-nS-IdD" secondAttribute="top" constant="22" id="eJj-Nv-LkA"/>
+                            <constraint firstItem="R8I-Vn-6zg" firstAttribute="top" secondItem="yeY-nS-IdD" secondAttribute="top" constant="30" id="eJj-Nv-LkA"/>
                             <constraint firstItem="CbE-ha-Ned" firstAttribute="leading" secondItem="yeY-nS-IdD" secondAttribute="leading" id="fqW-HO-a7u"/>
                             <constraint firstItem="yeY-nS-IdD" firstAttribute="trailing" secondItem="jXZ-ka-SFu" secondAttribute="trailing" constant="22" id="ivC-Hw-yms"/>
                         </constraints>
@@ -231,6 +238,7 @@
                     <navigationItem key="navigationItem" title="Detalhes" id="c7e-wF-oEI"/>
                     <connections>
                         <outlet property="datePicker" destination="CbE-ha-Ned" id="fhG-0b-nOr"/>
+                        <outlet property="lblDescricao" destination="R8I-Vn-6zg" id="2Em-cT-F6V"/>
                         <outlet property="textReminder" destination="jXZ-ka-SFu" id="MNh-S0-Ebs"/>
                     </connections>
                 </viewController>
