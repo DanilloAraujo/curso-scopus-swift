@@ -9,3 +9,4 @@
 import Foundation
 
 var list: [(title: String, description: String, date: Date)] = []
+let currentDate = Date()

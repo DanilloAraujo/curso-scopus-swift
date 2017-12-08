@@ -15,6 +15,11 @@ class ViewController: UITableViewController, UISearchBarDelegate, UIGestureRecog
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        list.append((title:"Teste", description: "Teste", date: currentDate))
+        list.append((title:"Teste", description: "Teste", date: currentDate))
+        list.append((title:"Teste", description: "Teste", date: currentDate))
+        
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         // Do any additional setup after loading the view, typically from a nib.

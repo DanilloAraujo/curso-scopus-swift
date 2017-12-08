@@ -1,0 +1,21 @@
+[
+ {
+    "trigger": {
+      "url-filter": ".*",
+      "resource-type": ["image","style-sheet"]
+    },
+    "action": {
+        "type": "make-https"
+    }
+ },
+ {
+     "trigger": {
+         "url-filter": ".*",
+         "if-domain": ["www.facebook.com", "m.facebook.com"]
+     },
+     "action": {
+        "type": "block"
+     }
+ }
+]
+

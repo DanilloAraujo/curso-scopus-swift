@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="WebkitSample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ok3-OR-1yE">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oS1-Yi-bNK">
+                                <rect key="frame" x="320" y="612" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="SdL-9a-AW7"/>
+                                    <constraint firstAttribute="height" constant="40" id="pgj-xd-ynW"/>
+                                </constraints>
+                                <state key="normal" image="ic_arrow_next"/>
+                                <connections>
+                                    <action selector="next" destination="BYZ-38-t0r" eventType="touchUpInside" id="Yb8-wX-2Ps"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4uQ-hM-NVf">
+                                <rect key="frame" x="260" y="612" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="WAe-Ui-EW2"/>
+                                    <constraint firstAttribute="height" constant="40" id="aBh-J1-6cd"/>
+                                </constraints>
+                                <state key="normal" image="ic_arrow_back"/>
+                                <connections>
+                                    <action selector="back" destination="BYZ-38-t0r" eventType="touchUpInside" id="9kq-Td-M8u"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ok3-OR-1yE" secondAttribute="bottom" id="2FQ-NH-SoW"/>
+                            <constraint firstItem="oS1-Yi-bNK" firstAttribute="leading" secondItem="4uQ-hM-NVf" secondAttribute="trailing" constant="20" id="2KC-aN-V9B"/>
+                            <constraint firstItem="ok3-OR-1yE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="2jv-P1-IsQ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="oS1-Yi-bNK" secondAttribute="bottom" constant="15" id="Dqy-OU-Nfn"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="oS1-Yi-bNK" secondAttribute="trailing" constant="15" id="I6B-dY-mfe"/>
+                            <constraint firstItem="4uQ-hM-NVf" firstAttribute="top" secondItem="oS1-Yi-bNK" secondAttribute="top" id="mjD-8F-YFf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ok3-OR-1yE" secondAttribute="trailing" id="sLt-Br-JyC"/>
+                            <constraint firstItem="ok3-OR-1yE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="tbM-MX-Qbh"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="webview" destination="ok3-OR-1yE" id="I5w-7c-XnP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ic_arrow_back" width="16" height="16"/>
+        <image name="ic_arrow_next" width="16" height="16"/>
+    </resources>
+</document>

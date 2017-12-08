@@ -12,6 +12,10 @@ class DetailController: UIViewController, UIGestureRecognizerDelegate {
 
     var selectedItem: (title: String, description: String, date: Date)?
     
+    var fontSize: Float = 10.0
+    
+    let defaults:UserDefaults = UserDefaults.standard
+    
     @IBOutlet weak var lblDescricao: UILabel!
     @IBOutlet weak var textReminder: UITextView!
     @IBOutlet weak var datePicker: UIDatePicker!
@@ -22,10 +26,24 @@ class DetailController: UIViewController, UIGestureRecognizerDelegate {
         
         lblDescricao.font = UIFont(name: (lblDescricao.font?.fontName)!, size: CGFloat(sender.value))
         
+        fontSize = sender.value
+        
+        defaults.set(fontSize, forKey: Config.kFontSize)
+        defaults.synchronize()
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let size = defaults.float(forKey: Config.kFontSize)
+        if size != 0 {
+            fontSize = size
+        }
+        
+        textReminder.font = UIFont(name: (textReminder.font?.fontName)!, size: CGFloat(fontSize))
+        
+        lblDescricao.font = UIFont(name: (lblDescricao.font?.fontName)!, size: CGFloat(fontSize))
 
         self.view.isUserInteractionEnabled = true
         self.view.isMultipleTouchEnabled = true
@@ -35,6 +53,7 @@ class DetailController: UIViewController, UIGestureRecognizerDelegate {
         gestureRigthSwipte.delegate = self
         gestureRigthSwipte.direction = UISwipeGestureRecognizerDirection.right
         self.view.addGestureRecognizer(gestureRigthSwipte)
+        
     }
 
     @objc func rightSwipe(_ sender : UISwipeGestureRecognizer) {
