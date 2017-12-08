@@ -17,6 +17,8 @@ enum TasksRoute: Routable {
     
     case editTask(task: Result)
     
+    case delete(task: Result)
+    
     var rule: Rule {
         switch self {
         case .getTasks:
@@ -25,8 +27,12 @@ enum TasksRoute: Routable {
             )
         case let .saveTask(task):
             return Rule(method: .post, path: "v1/tasks/", isAuthenticable: false, parameters: [.body: task])
+            
         case let .editTask(task):
             return Rule(method: .put, path: "v1/tasks/\(task.id ?? "")/", isAuthenticable: false, parameters: [.body: task])
+            
+        case let .delete(task):
+            return Rule(method: .delete, path: "v1/tasks/\(task.id ?? "")/", isAuthenticable: false, parameters: [:])
         }
     }
     

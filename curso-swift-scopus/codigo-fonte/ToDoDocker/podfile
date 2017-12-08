@@ -10,6 +10,7 @@ target 'ToDoDocker' do
   pod 'MBProgressHUD'
   pod 'SwiftMessages'
   pod 'RealmSwift'
+  pod 'DatePickerDialog'
   # Pods for ToDoDocker
 
 end

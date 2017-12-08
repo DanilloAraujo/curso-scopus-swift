@@ -10,6 +10,7 @@ import UIKit
 import BFKit
 import MBProgressHUD
 import SwiftMessages
+import DatePickerDialog
 
 class NewTaskController: UIViewController {
     
@@ -39,42 +40,82 @@ class NewTaskController: UIViewController {
         }
     }
     
+    @IBAction func showDatePicker(_ sender: Any) {
+        datePickerTapped()
+    }
+    
+    func datePickerTapped() {
+        var date: Date!
+        if  editTask {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            date = dateFormatter.date(from: taskResult.expirationDate!)
+        } else {
+            date = Date()
+        }
+        DatePickerDialog().show(
+            "Data de Expiração",
+            doneButtonTitle: "Concluir",
+            cancelButtonTitle: "Cancelar",
+            defaultDate: date,
+            datePickerMode: .date) {
+            (date) -> Void in
+            
+            if let dt = date {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd"
+                self.taskResult.expirationDate = formatter.string(from: dt)
+            }
+        }
+    }
     
     @IBAction func saveTask(_ sender: Any) {
+        
         taskResult.title = taskTitle.text
         taskResult.desc = taskDescription.text
         taskResult.isComplete = taskComplete.isOn
-        taskResult.expirationDate = "2017-12-14"
         
-        if editTask {
-            edit()
-        } else {
-            save()
+        if validationFields() {
+            editTask ? edit() : save()
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    func validationFields() -> Bool {
+        
+        var isValid = true
+        
+        if (taskResult.title == nil || (taskResult.title?.isEmpty)!) {
+            isValid = false
+            self.showAlert(title: "Alerta", body: "O campo título deve ser informado!", theme: Theme.warning)
+        } else if (taskResult.desc == nil || (taskResult.desc?.isEmpty)!) {
+            isValid = false
+            self.showAlert(title: "Alerta", body: "O campo descrição deve ser informado!", theme: Theme.warning)
+        } else if (taskResult.expirationDate == nil || (taskResult.expirationDate?.isEmpty)!) {
+            isValid = false
+            self.showAlert(title: "Alerta", body: "Informe uma data!", theme: Theme.warning)
         }
         
-        self.navigationController?.popViewController(animated: true)
+        return isValid
+    }
+    
+    func showAlert(title: String, body: String, theme: Theme) {
+        SwiftMessages.show {
+            let view = MessageView.viewFromNib(layout: MessageView.Layout.cardView)
+            view.configureContent(title: title, body: body)
+            view.button?.isHidden = true
+            view.configureTheme(theme)
+            view.configureDropShadow()
+            return view
+        }
     }
     
     func save() {
         self.showLoading()
         TasksService().saveTask(task: self.taskResult, onSuccess: { response in
-            SwiftMessages.show {
-                let view = MessageView.viewFromNib(layout: MessageView.Layout.cardView)
-                view.configureContent(title: "Sucesso", body: "Task criada com sucesso!")
-                view.button?.isHidden = true
-                view.configureTheme(Theme.success)
-                view.configureDropShadow()
-                return view
-            }
+            self.showAlert(title: "Sucesso", body: "Task criada com sucesso!", theme: Theme.success)
         }, onError: { error in
-            SwiftMessages.show {
-                let view = MessageView.viewFromNib(layout: MessageView.Layout.cardView)
-                view.configureContent(title: "Erro", body: "Ocorreu um erro a incluir task.")
-                view.button?.isHidden = true
-                view.configureTheme(Theme.error)
-                view.configureDropShadow()
-                return view
-            }
+            self.showAlert(title: "Erro", body: "Ocorreu um erro a incluir task.", theme: Theme.error)
         }, always: {
             self.hideLoading()
         })
@@ -83,23 +124,9 @@ class NewTaskController: UIViewController {
     func edit() {
         self.showLoading()
         TasksService().editTask(task: self.taskResult, onSuccess: { response in
-            SwiftMessages.show {
-                let view = MessageView.viewFromNib(layout: MessageView.Layout.cardView)
-                view.configureContent(title: "Sucesso", body: "Task editada com sucesso!")
-                view.button?.isHidden = true
-                view.configureTheme(Theme.success)
-                view.configureDropShadow()
-                return view
-            }
+            self.showAlert(title: "Sucesso", body: "Task editada com sucesso!", theme: Theme.success)
         }, onError: { error in
-            SwiftMessages.show {
-                let view = MessageView.viewFromNib(layout: MessageView.Layout.cardView)
-                view.configureContent(title: "Erro", body: "Ocorreu um erro a editar a task.")
-                view.button?.isHidden = true
-                view.configureTheme(Theme.error)
-                view.configureDropShadow()
-                return view
-            }
+            self.showAlert(title: "Erro", body: "Ocorreu um erro a editar a task.", theme: Theme.error)
         }, always: {
             self.hideLoading()
         })

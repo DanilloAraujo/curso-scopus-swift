@@ -38,4 +38,12 @@ class TasksService: Service<TasksRoute> {
         try! call(.editTask(task: task), type: Result.self, onSuccess: onSuccess,
                   onError: onError, always: always)
     }
+    
+    func delete(task: Result,
+                onSuccess: @escaping (Response<Result>?) -> Void,
+                onError: @escaping (RestError?) -> Void,
+                always: @escaping () -> Void) {
+        try! call(.delete(task: task), type: Result.self, onSuccess: onSuccess,
+                  onError: onError, always: always)
+    }
 }

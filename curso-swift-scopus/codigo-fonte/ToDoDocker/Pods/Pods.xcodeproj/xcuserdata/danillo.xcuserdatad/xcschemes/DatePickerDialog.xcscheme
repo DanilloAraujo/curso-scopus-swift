@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '7FC90DE934306805813D6B1B7B6EB15F'
-               BlueprintName = 'Realm'
+               BlueprintIdentifier = '184A1650DC0B648BD756068E60BF2C59'
+               BlueprintName = 'DatePickerDialog'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'Realm.framework'>
+               BuildableName = 'DatePickerDialog.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

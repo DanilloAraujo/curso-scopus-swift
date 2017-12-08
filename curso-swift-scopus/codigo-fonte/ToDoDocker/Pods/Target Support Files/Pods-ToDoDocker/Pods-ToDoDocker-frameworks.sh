@@ -104,6 +104,7 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BFKit-Swift/BFKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/DatePickerDialog/DatePickerDialog.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/EasyRest/EasyRest.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Genome/Genome.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework"
@@ -114,6 +115,7 @@ fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/BFKit-Swift/BFKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/DatePickerDialog/DatePickerDialog.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/EasyRest/EasyRest.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Genome/Genome.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework"

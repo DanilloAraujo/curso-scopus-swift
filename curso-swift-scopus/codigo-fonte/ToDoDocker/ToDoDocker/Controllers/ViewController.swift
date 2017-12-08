@@ -34,6 +34,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.userName.becomeFirstResponder()
+        self.userName.text = "danilloaraujo.si@gmail.com"
+        self.password.text = "das23042016"
         // Do any additional setup after loading the view, typically from a nib.
     }
     

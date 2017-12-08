@@ -9,10 +9,15 @@
 import UIKit
 import SwiftMessages
 
-class TasksTableViewController: UITableViewController {
+class TasksTableViewController: UITableViewController, UISearchBarDelegate {
     
     var tasks = Tasks()
     var taskSelected = Result()
+    lazy var originalList: [Result] = []
+    var isSearch = false
+    
+    @IBOutlet weak var btnSearch: UIBarButtonItem!
+    @IBOutlet weak var btnAdd: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +25,7 @@ class TasksTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        getTasks()
+        self.isSearch ? isSearch = false : getTasks()
     }
     
     override func didReceiveMemoryWarning() {
@@ -28,7 +33,7 @@ class TasksTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasks.count ?? 0
+        return tasks.results?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -41,6 +46,19 @@ class TasksTableViewController: UITableViewController {
         cell.imgComplete.isHidden = !content.isComplete!
         
         return cell
+    }
+    
+    @IBAction func search(_ sender: Any) {
+        let searchBar = UISearchBar()
+        searchBar.delegate = self
+        searchBar.scopeBarBackgroundImage = UIImage()
+        self.navigationItem.titleView = searchBar
+        searchBar.tintColor = UIColor.white
+        searchBar.becomeFirstResponder()
+        self.btnSearch.tintColor = UIColor.clear
+        self.btnSearch.isEnabled = false
+        self.btnAdd.tintColor = UIColor.clear
+        self.btnAdd.isEnabled = false
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -58,27 +76,99 @@ class TasksTableViewController: UITableViewController {
         }
     }
     
-    func getTasks() {
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        searchBar.showsCancelButton = true
+        searchBar.placeholder = "Search"
+        return true
+    }
+    
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        searchBar.showsCancelButton = false
+        return true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        self.navigationItem.titleView = nil
+        self.btnSearch.tintColor = UIColor.white
+        self.btnSearch.isEnabled = true
+        self.btnAdd.tintColor = UIColor.white
+        self.btnAdd.isEnabled = true
+        self.isSearch = false
+        getTasks()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.isSearch = true
+        if searchText.isEmpty {
+            tasks.results = originalList
+            self.tableView.reloadData()
+            return
+        }
         
+        tasks.results = []
+        
+        for (result) in originalList {
+            
+            if (result.title?.uppercased().range(of: searchText.uppercased()) != nil) {
+                tasks.results?.append(result)
+            }
+            
+        }
+        
+        self.tableView.reloadData()
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == .delete) {
+            let result = self.tasks.results![indexPath.row]
+            delete(result: result)
+            tasks.results?.remove(result)
+            tableView.reloadData()
+        }
+    }
+    
+    func showAlert(title: String, body: String, theme: Theme) {
+        SwiftMessages.show {
+            let view = MessageView.viewFromNib(layout: MessageView.Layout.cardView)
+            view.configureContent(title: title, body: body)
+            view.button?.isHidden = true
+            view.configureTheme(theme)
+            view.configureDropShadow()
+            return view
+        }
+    }
+    
+    func getTasks() {
         self.showLoading()
         TasksService().getTasks(
             onSuccess: {response in
                 if response?.httpStatusCode == 200{
                     self.tasks = (response?.body)!
+                    self.originalList = self.tasks.results!
                     self.tableView.reloadData()
                 }
         },
             onError: { error in
-                SwiftMessages.show {
-                    let view = MessageView.viewFromNib(layout: MessageView.Layout.cardView)
-                    view.configureContent(title: "Erro", body: "Não foi possível recuperar as Tasks!")
-                    view.button?.isHidden = true
-                    view.configureTheme(Theme.error)
-                    view.configureDropShadow()
-                    return view
-                }},
+                self.showAlert(title: "Erro", body: "Não foi possível recuperar as Tasks!", theme: Theme.success)
+        },
             always: {
                 self.hideLoading()
+        })
+    }
+    
+    func delete(result: Result) {
+        self.showLoading()
+        TasksService().delete(task: result,
+                              onSuccess: {response in
+                                self.showAlert(title: "Sucesso", body: "Task excluída com sucesso", theme: Theme.success)},
+                              onError: { error in
+                                self.showAlert(title: "Erro", body: "Não foi possível recuperar as Tasks!", theme: Theme.success)}, always: {
+                                    self.hideLoading()
         })
     }
     

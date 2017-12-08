@@ -129,10 +129,15 @@
                             </barButtonItem>
                             <barButtonItem systemItem="search" id="QJC-fn-TzT">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <action selector="search:" destination="caA-Sa-uNp" id="7H7-Gb-mZb"/>
+                                </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="btnAdd" destination="jhw-r6-NwK" id="m26-O2-9Tc"/>
+                        <outlet property="btnSearch" destination="QJC-fn-TzT" id="Ddm-hG-5j1"/>
                         <segue destination="hlN-uM-fM7" kind="show" identifier="editTask" id="LeD-Ns-sDj"/>
                     </connections>
                 </tableViewController>
@@ -175,6 +180,9 @@
                                         <real key="value" value="11.199999999999999"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="showDatePicker:" destination="hlN-uM-fM7" eventType="touchUpInside" id="GIh-83-Jn8"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Título" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c5j-cL-5nP">
                                 <rect key="frame" x="22" y="103" width="276" height="58"/>
