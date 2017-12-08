@@ -12,6 +12,7 @@ import SwiftMessages
 class TasksTableViewController: UITableViewController {
     
     var tasks = Tasks()
+    var taskSelected = Result()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,13 +38,29 @@ class TasksTableViewController: UITableViewController {
         cell.lblTitle.text = content.title
         cell.lblDetail.text = content.desc
         cell.lblDate.text = content.expirationDate
-        cell.imgComplete.isHidden = content.isComplete!
+        cell.imgComplete.isHidden = !content.isComplete!
         
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.taskSelected = tasks.results![indexPath.row]
+        self.tableView.deselectRow(at: indexPath, animated: false)
+        self.performSegue(withIdentifier: "editTask", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let dest = segue.destination as? NewTaskController {
+            if segue.identifier == "editTask" {
+                dest.editTask = true
+                dest.taskResult = self.taskSelected
+            }
+        }
+    }
+    
     func getTasks() {
         
+        self.showLoading()
         TasksService().getTasks(
             onSuccess: {response in
                 if response?.httpStatusCode == 200{
@@ -61,7 +78,7 @@ class TasksTableViewController: UITableViewController {
                     return view
                 }},
             always: {
-                
+                self.hideLoading()
         })
     }
     

@@ -124,7 +124,7 @@
                             <barButtonItem systemItem="add" id="jhw-r6-NwK">
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
-                                    <segue destination="hlN-uM-fM7" kind="show" id="eOX-CD-Go6"/>
+                                    <segue destination="hlN-uM-fM7" kind="show" identifier="" id="eOX-CD-Go6"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="search" id="QJC-fn-TzT">
@@ -132,6 +132,9 @@
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <segue destination="hlN-uM-fM7" kind="show" identifier="editTask" id="LeD-Ns-sDj"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iea-ux-A3T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -173,16 +176,6 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vBp-cR-KlA">
-                                <rect key="frame" x="22" y="203.5" width="276" height="144"/>
-                                <color key="backgroundColor" red="0.29019607843137252" green="0.56470588235294117" blue="0.88627450980392153" alpha="0.50484267979452058" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="144" id="Deh-3c-DGd"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Título" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c5j-cL-5nP">
                                 <rect key="frame" x="22" y="103" width="276" height="58"/>
                                 <color key="backgroundColor" red="0.98039215686274506" green="0.98039215686274506" blue="0.98039215686274506" alpha="0.75024079623287676" colorSpace="custom" customColorSpace="displayP3"/>
@@ -214,23 +207,38 @@
                                     <action selector="saveTask:" destination="hlN-uM-fM7" eventType="touchUpInside" id="iMw-lf-Yic"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="4zv-XW-8bd">
+                                <rect key="frame" x="22" y="203" width="276" height="144"/>
+                                <color key="backgroundColor" red="0.61958694458007812" green="0.77787250280380249" blue="0.93727689981460571" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="144" id="jZk-x2-S9e"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="11.199999999999999"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="aRz-Vj-KK0" firstAttribute="top" secondItem="vBp-cR-KlA" secondAttribute="bottom" constant="12" id="EIT-PL-h7E"/>
+                            <constraint firstItem="4zv-XW-8bd" firstAttribute="leading" secondItem="30y-Fk-WfI" secondAttribute="leading" constant="22" id="350-Zu-u4N"/>
+                            <constraint firstItem="30y-Fk-WfI" firstAttribute="trailing" secondItem="4zv-XW-8bd" secondAttribute="trailing" constant="22" id="5We-nL-h36"/>
                             <constraint firstItem="c5j-cL-5nP" firstAttribute="leading" secondItem="30y-Fk-WfI" secondAttribute="leading" constant="22" id="J9v-Mt-vkP"/>
                             <constraint firstItem="30y-Fk-WfI" firstAttribute="trailing" secondItem="c5j-cL-5nP" secondAttribute="trailing" constant="22" id="Kex-4O-Sna"/>
                             <constraint firstItem="kZL-QU-dUL" firstAttribute="top" secondItem="c5j-cL-5nP" secondAttribute="bottom" constant="15" id="OgX-RC-OWB"/>
                             <constraint firstItem="SBm-ic-7a7" firstAttribute="leading" secondItem="30y-Fk-WfI" secondAttribute="leading" constant="22" id="Ome-Pn-CsO"/>
                             <constraint firstItem="WAc-Qn-XWo" firstAttribute="leading" secondItem="30y-Fk-WfI" secondAttribute="leading" constant="31" id="PGW-OJ-5d5"/>
-                            <constraint firstItem="vBp-cR-KlA" firstAttribute="leading" secondItem="30y-Fk-WfI" secondAttribute="leading" constant="22" id="PdF-zt-J0i"/>
-                            <constraint firstItem="30y-Fk-WfI" firstAttribute="trailing" secondItem="vBp-cR-KlA" secondAttribute="trailing" constant="22" id="TS4-0a-vae"/>
+                            <constraint firstItem="4zv-XW-8bd" firstAttribute="top" secondItem="kZL-QU-dUL" secondAttribute="bottom" constant="8" id="RIg-Pn-uNv"/>
                             <constraint firstItem="c5j-cL-5nP" firstAttribute="top" secondItem="30y-Fk-WfI" secondAttribute="top" constant="39" id="ZPX-bS-Uyx"/>
                             <constraint firstItem="30y-Fk-WfI" firstAttribute="trailing" secondItem="SBm-ic-7a7" secondAttribute="trailing" constant="22" id="abI-bK-4PX"/>
                             <constraint firstItem="LMO-xo-R7K" firstAttribute="top" secondItem="WAc-Qn-XWo" secondAttribute="bottom" constant="22" id="bTm-2W-ii0"/>
                             <constraint firstItem="30y-Fk-WfI" firstAttribute="trailing" secondItem="LMO-xo-R7K" secondAttribute="trailing" constant="22" id="f9A-RX-nDf"/>
                             <constraint firstItem="kZL-QU-dUL" firstAttribute="leading" secondItem="30y-Fk-WfI" secondAttribute="leading" constant="22" id="fJj-If-Od4"/>
-                            <constraint firstItem="vBp-cR-KlA" firstAttribute="top" secondItem="kZL-QU-dUL" secondAttribute="bottom" constant="8" id="ftO-Hc-AcL"/>
+                            <constraint firstItem="aRz-Vj-KK0" firstAttribute="top" secondItem="4zv-XW-8bd" secondAttribute="bottom" constant="12" id="hmc-6Z-CWn"/>
                             <constraint firstItem="LMO-xo-R7K" firstAttribute="leading" secondItem="30y-Fk-WfI" secondAttribute="leading" constant="22" id="lWc-Al-yZA"/>
                             <constraint firstItem="SBm-ic-7a7" firstAttribute="top" secondItem="LMO-xo-R7K" secondAttribute="bottom" constant="15" id="o5z-pk-QGx"/>
                             <constraint firstItem="aRz-Vj-KK0" firstAttribute="leading" secondItem="30y-Fk-WfI" secondAttribute="leading" constant="22" id="pBg-8F-biW"/>
@@ -240,7 +248,7 @@
                     </view>
                     <connections>
                         <outlet property="taskComplete" destination="WAc-Qn-XWo" id="2Rk-We-Lgd"/>
-                        <outlet property="taskDescription" destination="vBp-cR-KlA" id="85u-Uz-eCf"/>
+                        <outlet property="taskDescription" destination="4zv-XW-8bd" id="9O9-ck-fvw"/>
                         <outlet property="taskTitle" destination="c5j-cL-5nP" id="rfk-N4-vys"/>
                     </connections>
                 </viewController>
@@ -269,4 +277,7 @@
             <point key="canvasLocation" x="463" y="112"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="eOX-CD-Go6"/>
+    </inferredMetricsTieBreakers>
 </document>

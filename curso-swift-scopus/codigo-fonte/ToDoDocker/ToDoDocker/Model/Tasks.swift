@@ -33,7 +33,7 @@ class Result: BaseModel {
     var owner: String?
     
     override func sequence(_ map: Map) throws {
-        try id ~> map["id"]
+        try id <~> map["id"]
         try expirationDate <~> map["expiration_date"]
         try title <~> map["title"]
         try desc <~> map["description"]

@@ -23,11 +23,19 @@ class TasksService: Service<TasksRoute> {
                   onError: onError, always: always)
     }
     
-    func saveTask(title: String, description: String, expirationDate: String, complete: Bool,
+    func saveTask(task: Result,
         onSuccess: @escaping (Response<Result>?) -> Void,
         onError: @escaping (RestError?) -> Void,
         always: @escaping () -> Void) {
-        try! call(.saveTask(title: title, description: description, expirationDate: expirationDate, complete: complete), type: Result.self, onSuccess: onSuccess,
+        try! call(.saveTask(task: task), type: Result.self, onSuccess: onSuccess,
+                  onError: onError, always: always)
+    }
+    
+    func editTask(task: Result,
+                  onSuccess: @escaping (Response<Result>?) -> Void,
+                  onError: @escaping (RestError?) -> Void,
+                  always: @escaping () -> Void) {
+        try! call(.editTask(task: task), type: Result.self, onSuccess: onSuccess,
                   onError: onError, always: always)
     }
 }

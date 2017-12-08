@@ -18,6 +18,14 @@ class ViewController: UIViewController {
     
     @IBAction func login(_ sender: Any) {
         guard !(self.userName.text?.isEmpty)! && !(self.password.text?.isEmpty)! else {
+            SwiftMessages.show{
+                let view = MessageView.viewFromNib(layout: MessageView.Layout.cardView)
+                view.configureContent(title: "Alerta", body: "Informe usuário e senha!")
+                view.button?.isHidden = true
+                view.configureTheme(Theme.warning)
+                view.configureDropShadow()
+                return view
+            }
             return
         }
         postRequest()
