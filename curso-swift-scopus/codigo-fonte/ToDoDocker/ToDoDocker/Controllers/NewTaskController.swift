@@ -127,8 +127,14 @@ class NewTaskController: UIViewController {
             myTask.desc = taskResult.desc
             myTask.expirationDate = taskResult.expirationDate
             myTask.isComplete = taskResult.isComplete!
-            try! Repository.bd.write {
-                Repository.bd.add(myTask)
+            do {
+                try Repository.bd.write {
+                    Repository.bd.add(myTask)
+                }
+                self.showAlert(title: "Sucesso", body: "Task criada com sucesso!", theme: Theme.success)
+            } catch let error as NSError {
+                self.showAlert(title: "Erro", body: "Ocorreu um erro a incluir task.", theme: Theme.error)
+                print(error)
             }
         }
     }
@@ -146,12 +152,18 @@ class NewTaskController: UIViewController {
         } else {
             var myTask = ResultDB()
             myTask = Repository.bd.object(ofType: ResultDB.self, forPrimaryKey: self.taskResult.id)!
-            try! Repository.bd.write {
-                myTask.title = self.taskResult.title
-                myTask.desc = self.taskResult.desc
-                myTask.expirationDate = self.taskResult.expirationDate
-                myTask.isComplete = self.taskResult.isComplete!
-                Repository.bd.add(myTask, update: true)
+            do {
+                try Repository.bd.write {
+                    myTask.title = self.taskResult.title
+                    myTask.desc = self.taskResult.desc
+                    myTask.expirationDate = self.taskResult.expirationDate
+                    myTask.isComplete = self.taskResult.isComplete!
+                    Repository.bd.add(myTask, update: true)
+                }
+                self.showAlert(title: "Sucesso", body: "Task editada com sucesso!", theme: Theme.success)
+            } catch let error as NSError {
+                self.showAlert(title: "Erro", body: "Ocorreu um erro a editar a task.", theme: Theme.error)
+                print(error)
             }
         }
     }

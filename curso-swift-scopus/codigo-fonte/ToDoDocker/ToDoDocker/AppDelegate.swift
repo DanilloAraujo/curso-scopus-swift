@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         SwiftMessages.defaultConfig.presentationStyle = .top
-        SwiftMessages.defaultConfig.duration = .seconds(seconds: 3)
+        SwiftMessages.defaultConfig.duration = .seconds(seconds: 1)
         return true
     }
 

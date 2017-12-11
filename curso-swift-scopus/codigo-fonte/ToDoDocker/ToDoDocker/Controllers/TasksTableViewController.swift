@@ -150,21 +150,28 @@ class TasksTableViewController: UITableViewController, UISearchBarDelegate {
                     }
             },
                 onError: { error in
-                    self.showAlert(title: "Erro", body: "Não foi possível recuperar as Tasks!", theme: Theme.success)
+                    self.showAlert(title: "Erro", body: "Não foi possível recuperar as Tasks!", theme: Theme.error)
             },
                 always: {
                     self.hideLoading()
             })
         } else {
             self.tasks.results = []
-            Repository.bd.objects(ResultDB.self).forEach {
-                let result = Result()
-                result.title = $0.title
-                result.desc = $0.desc
-                result.expirationDate = $0.expirationDate
-                result.isComplete = $0.isComplete
-                result.id = $0.id
-                self.tasks.results?.append(result)
+            do {
+                try Repository.bd.write {
+                    Repository.bd.objects(ResultDB.self).forEach {
+                        let result = Result()
+                        result.title = $0.title
+                        result.desc = $0.desc
+                        result.expirationDate = $0.expirationDate
+                        result.isComplete = $0.isComplete
+                        result.id = $0.id
+                        self.tasks.results?.append(result)
+                    }
+                }
+            } catch let error as NSError {
+                self.showAlert(title: "Erro", body: "Não foi possível recuperar as Tasks!", theme: Theme.error)
+                print(error)
             }
             
             self.tableView.reloadData()
@@ -178,14 +185,28 @@ class TasksTableViewController: UITableViewController, UISearchBarDelegate {
                                   onSuccess: {response in
                                     self.showAlert(title: "Sucesso", body: "Task excluída com sucesso", theme: Theme.success)},
                                   onError: { error in
-                                    self.showAlert(title: "Erro", body: "Não foi possível recuperar as Tasks!", theme: Theme.success)}, always: {
+                                    self.showAlert(title: "Erro", body: "Não foi possível excluir a Task!", theme: Theme.error)}, always: {
                                         self.hideLoading()
             })
         } else {
             var resultDB = ResultDB()
-            resultDB = Repository.bd.object(ofType: ResultDB.self, forPrimaryKey: result.id)!
-            try! Repository.bd.write {
-                Repository.bd.delete(resultDB)
+            do {
+                try Repository.bd.write {
+                    resultDB = Repository.bd.object(ofType: ResultDB.self, forPrimaryKey: result.id)!
+                }
+            } catch let error as NSError {
+                self.showAlert(title: "Erro", body: "Não foi possível recuperar a Task!", theme: Theme.error)
+                print(error)
+            }
+            
+            do {
+                try Repository.bd.write {
+                    Repository.bd.delete(resultDB)
+                    self.showAlert(title: "Sucesso", body: "Task excluída com sucesso", theme: Theme.success)
+                }
+            } catch let error as NSError {
+                self.showAlert(title: "Erro", body: "Não foi possível excluir a Task!", theme: Theme.error)
+                print(error)
             }
         }
     }
