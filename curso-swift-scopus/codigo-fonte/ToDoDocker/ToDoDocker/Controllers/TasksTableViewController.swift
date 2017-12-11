@@ -8,7 +8,6 @@
 
 import UIKit
 import SwiftMessages
-import RealmSwift
 
 class TasksTableViewController: UITableViewController, UISearchBarDelegate {
     
@@ -19,8 +18,6 @@ class TasksTableViewController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var btnSearch: UIBarButtonItem!
     @IBOutlet weak var btnAdd: UIBarButtonItem!
-    
-    let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,17 +104,12 @@ class TasksTableViewController: UITableViewController, UISearchBarDelegate {
             self.tableView.reloadData()
             return
         }
-        
         tasks.results = []
-        
         for (result) in originalList {
-            
             if (result.title?.uppercased().range(of: searchText.uppercased()) != nil) {
                 tasks.results?.append(result)
             }
-            
         }
-        
         self.tableView.reloadData()
     }
     
@@ -191,9 +183,9 @@ class TasksTableViewController: UITableViewController, UISearchBarDelegate {
             })
         } else {
             var resultDB = ResultDB()
-            resultDB = realm.object(ofType: ResultDB.self, forPrimaryKey: result.id)!
-            try! realm.write {
-                realm.delete(resultDB)
+            resultDB = Repository.bd.object(ofType: ResultDB.self, forPrimaryKey: result.id)!
+            try! Repository.bd.write {
+                Repository.bd.delete(resultDB)
             }
         }
     }

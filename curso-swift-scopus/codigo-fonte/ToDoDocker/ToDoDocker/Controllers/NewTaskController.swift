@@ -11,7 +11,6 @@ import BFKit
 import MBProgressHUD
 import SwiftMessages
 import DatePickerDialog
-import RealmSwift
 
 class NewTaskController: UIViewController {
     
@@ -21,7 +20,7 @@ class NewTaskController: UIViewController {
     
     var taskResult = Result()
     var editTask = false
-    let realm = try! Realm()
+    //let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,8 +127,8 @@ class NewTaskController: UIViewController {
             myTask.desc = taskResult.desc
             myTask.expirationDate = taskResult.expirationDate
             myTask.isComplete = taskResult.isComplete!
-            try! realm.write {
-                realm.add(myTask)
+            try! Repository.bd.write {
+                Repository.bd.add(myTask)
             }
         }
     }
@@ -146,13 +145,13 @@ class NewTaskController: UIViewController {
             })
         } else {
             var myTask = ResultDB()
-            myTask = realm.object(ofType: ResultDB.self, forPrimaryKey: self.taskResult.id)!
-            try! realm.write {
+            myTask = Repository.bd.object(ofType: ResultDB.self, forPrimaryKey: self.taskResult.id)!
+            try! Repository.bd.write {
                 myTask.title = self.taskResult.title
                 myTask.desc = self.taskResult.desc
                 myTask.expirationDate = self.taskResult.expirationDate
                 myTask.isComplete = self.taskResult.isComplete!
-                realm.add(myTask, update: true)
+                Repository.bd.add(myTask, update: true)
             }
         }
     }

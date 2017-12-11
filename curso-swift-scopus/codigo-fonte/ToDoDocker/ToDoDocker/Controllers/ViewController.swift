@@ -30,6 +30,7 @@ class ViewController: UIViewController {
                 return
             }
             postRequest()
+            synchronizeTask()
         }
     }
     
@@ -44,6 +45,7 @@ class ViewController: UIViewController {
             let expiresDate = UserDefaults.standard.integer(forKey: AppConfig.expiration)
             let date = Date(timeIntervalSinceNow: TimeInterval(expiresDate))
             if date > Date() {
+                synchronizeTask()
                 self.segueToTasks()
             }
         } else {
@@ -93,6 +95,38 @@ class ViewController: UIViewController {
     
     func segueToTasks() {
         self.performSegue(withIdentifier: "tasks", sender: self)
+    }
+    
+    func synchronizeTask() {
+        
+        let listResult: [ResultDB] = Repository.bd.objects(ResultDB.self)
+            .filter(NSPredicate(format: "isEnviado == false")).map { $0 }
+        
+        let group = DispatchGroup()
+        
+        for i in 0..<listResult.count {
+            group.enter()
+            let result = Result()
+            result.title = listResult[i].title
+            result.desc = listResult[i].desc
+            result.expirationDate = listResult[i].expirationDate
+            result.isComplete = listResult[i].isComplete
+            
+            TasksService().saveTask(task: result,
+                                    onSuccess: { response in
+                                        try! Repository.bd.write {
+                                            Repository.bd.delete(listResult[i])
+                                        }
+            },
+                                    onError: {error in},
+                                    always: {})
+            
+        }
+        
+        group.notify(queue: .main) {
+            print("Finished all requests.")
+        }
+        
     }
     
 }
