@@ -17,26 +17,38 @@ class ViewController: UIViewController {
     @IBOutlet weak var password: UITextField!
     
     @IBAction func login(_ sender: Any) {
-        guard !(self.userName.text?.isEmpty)! && !(self.password.text?.isEmpty)! else {
-            SwiftMessages.show{
-                let view = MessageView.viewFromNib(layout: MessageView.Layout.cardView)
-                view.configureContent(title: "Alerta", body: "Informe usuário e senha!")
-                view.button?.isHidden = true
-                view.configureTheme(Theme.warning)
-                view.configureDropShadow()
-                return view
+        if Reachability.isConnectedToNetwork() {
+            guard !(self.userName.text?.isEmpty)! && !(self.password.text?.isEmpty)! else {
+                SwiftMessages.show{
+                    let view = MessageView.viewFromNib(layout: MessageView.Layout.cardView)
+                    view.configureContent(title: "Alerta", body: "Informe usuário e senha!")
+                    view.button?.isHidden = true
+                    view.configureTheme(Theme.warning)
+                    view.configureDropShadow()
+                    return view
+                }
+                return
             }
-            return
+            postRequest()
         }
-        postRequest()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.userName.becomeFirstResponder()
-        self.userName.text = "danilloaraujo.si@gmail.com"
-        self.password.text = "das23042016"
         // Do any additional setup after loading the view, typically from a nib.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if Reachability.isConnectedToNetwork() {
+            let expiresDate = UserDefaults.standard.integer(forKey: AppConfig.expiration)
+            let date = Date(timeIntervalSinceNow: TimeInterval(expiresDate))
+            if date > Date() {
+                self.segueToTasks()
+            }
+        } else {
+            self.segueToTasks()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -50,6 +62,7 @@ class ViewController: UIViewController {
         LoginService().getLogin(username: self.userName.text!,password: self.password.text!, onSuccess: { response in
             if response?.httpStatusCode == 200 {
                 loginModel = (response?.body)!
+                self.getToken(login: loginModel)
                 self.segueToTasks()
             }
             
@@ -70,6 +83,12 @@ class ViewController: UIViewController {
             self.hideLoading()
         })
         
+    }
+    
+    func getToken(login: Login) {
+        let preference = UserDefaults.standard
+        preference.setValue(login.token, forKey: AppConfig.token)
+        preference.setValue(login.expires, forKey: AppConfig.expiration)
     }
     
     func segueToTasks() {

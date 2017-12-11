@@ -12,14 +12,14 @@ import Alamofire
 import EasyRest
 
 open class UrlInterceptor: Interceptor {
-
+    
     required public init() {}
-
+    
     open func requestInterceptor<T: NodeInitializable>(_ api: API<T>) {
         api.headers["Content-Type"] = "application/json"
         api.headers["Accept"] = "application/json"
         api.headers["Accept-Language"] = "pt-br"
-        api.headers["Authorization"] = "Bearer " + loginModel.token!
+        api.headers["Authorization"] = "Bearer \(UserDefaults.standard.string(forKey: AppConfig.token)!)"
     }
     
     open func responseInterceptor<T>(_ api: API<T>, response: DataResponse<Any>) where T : NodeInitializable {

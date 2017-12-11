@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1614A2471FDE08BA00877661 /* TasksDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1614A2461FDE08BA00877661 /* TasksDB.swift */; };
+		1614A2491FDEF8A700877661 /* ResultDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1614A2481FDEF8A700877661 /* ResultDB.swift */; };
+		1614A24B1FDEFC9500877661 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1614A24A1FDEFC9500877661 /* Singleton.swift */; };
 		1624AA701FD8877400130429 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1624AA6F1FD8877400130429 /* AppDelegate.swift */; };
 		1624AA721FD8877400130429 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1624AA711FD8877400130429 /* ViewController.swift */; };
 		1624AA751FD8877400130429 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1624AA731FD8877400130429 /* Main.storyboard */; };
@@ -28,6 +31,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1614A2461FDE08BA00877661 /* TasksDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksDB.swift; sourceTree = "<group>"; };
+		1614A2481FDEF8A700877661 /* ResultDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultDB.swift; sourceTree = "<group>"; };
+		1614A24A1FDEFC9500877661 /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		1624AA6C1FD8877400130429 /* ToDoDocker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoDocker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1624AA6F1FD8877400130429 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1624AA711FD8877400130429 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +70,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1614A2441FDE081000877661 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				1614A2451FDE083800877661 /* Models */,
+				1614A24A1FDEFC9500877661 /* Singleton.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		1614A2451FDE083800877661 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1614A2461FDE08BA00877661 /* TasksDB.swift */,
+				1614A2481FDEF8A700877661 /* ResultDB.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		1624AA631FD8877400130429 = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +109,7 @@
 		1624AA6E1FD8877400130429 /* ToDoDocker */ = {
 			isa = PBXGroup;
 			children = (
+				1614A2441FDE081000877661 /* Database */,
 				1646B1CE1FD9C79A00C459FD /* Controllers */,
 				1646B1CB1FD9C2FA00C459FD /* Interceptor */,
 				1646B1C61FD9BD3500C459FD /* Views */,
@@ -324,12 +349,15 @@
 				1646B1BD1FD8AEB700C459FD /* Login.swift in Sources */,
 				1646B1C31FD9B57400C459FD /* TasksService.swift in Sources */,
 				1646B1C11FD9B3EF00C459FD /* Tasks.swift in Sources */,
+				1614A2471FDE08BA00877661 /* TasksDB.swift in Sources */,
 				1646B1B41FD89CE300C459FD /* Constants.swift in Sources */,
 				1646B1CD1FD9C31000C459FD /* Interceptor.swift in Sources */,
 				1646B1CA1FD9BDA400C459FD /* TasksCell.swift in Sources */,
 				1646B1BF1FD9AFA300C459FD /* TasksTableViewController.swift in Sources */,
 				1646B1D01FD9F7FC00C459FD /* NewTaskController.swift in Sources */,
 				1646B1C51FD9B5B800C459FD /* TasksRoute.swift in Sources */,
+				1614A24B1FDEFC9500877661 /* Singleton.swift in Sources */,
+				1614A2491FDEF8A700877661 /* ResultDB.swift in Sources */,
 				1646B1B91FD8AE5900C459FD /* LoginRoute.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftMessages
+import RealmSwift
 
 class TasksTableViewController: UITableViewController, UISearchBarDelegate {
     
@@ -18,6 +19,8 @@ class TasksTableViewController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var btnSearch: UIBarButtonItem!
     @IBOutlet weak var btnAdd: UIBarButtonItem!
+    
+    let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +54,6 @@ class TasksTableViewController: UITableViewController, UISearchBarDelegate {
     @IBAction func search(_ sender: Any) {
         let searchBar = UISearchBar()
         searchBar.delegate = self
-        searchBar.scopeBarBackgroundImage = UIImage()
         self.navigationItem.titleView = searchBar
         searchBar.tintColor = UIColor.white
         searchBar.becomeFirstResponder()
@@ -127,7 +129,8 @@ class TasksTableViewController: UITableViewController, UISearchBarDelegate {
         if (editingStyle == .delete) {
             let result = self.tasks.results![indexPath.row]
             delete(result: result)
-            tasks.results?.remove(result)
+            self.tasks.results?.remove(result)
+            self.originalList.remove(result)
             tableView.reloadData()
         }
     }
@@ -144,32 +147,55 @@ class TasksTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func getTasks() {
-        self.showLoading()
-        TasksService().getTasks(
-            onSuccess: {response in
-                if response?.httpStatusCode == 200{
-                    self.tasks = (response?.body)!
-                    self.originalList = self.tasks.results!
-                    self.tableView.reloadData()
-                }
-        },
-            onError: { error in
-                self.showAlert(title: "Erro", body: "Não foi possível recuperar as Tasks!", theme: Theme.success)
-        },
-            always: {
-                self.hideLoading()
-        })
+        if Reachability.isConnectedToNetwork() {
+            self.showLoading()
+            TasksService().getTasks(
+                onSuccess: {response in
+                    if response?.httpStatusCode == 200{
+                        self.tasks = (response?.body)!
+                        self.originalList = self.tasks.results!
+                        self.tableView.reloadData()
+                    }
+            },
+                onError: { error in
+                    self.showAlert(title: "Erro", body: "Não foi possível recuperar as Tasks!", theme: Theme.success)
+            },
+                always: {
+                    self.hideLoading()
+            })
+        } else {
+            self.tasks.results = []
+            Repository.bd.objects(ResultDB.self).forEach {
+                let result = Result()
+                result.title = $0.title
+                result.desc = $0.desc
+                result.expirationDate = $0.expirationDate
+                result.isComplete = $0.isComplete
+                result.id = $0.id
+                self.tasks.results?.append(result)
+            }
+            
+            self.tableView.reloadData()
+        }
     }
     
     func delete(result: Result) {
-        self.showLoading()
-        TasksService().delete(task: result,
-                              onSuccess: {response in
-                                self.showAlert(title: "Sucesso", body: "Task excluída com sucesso", theme: Theme.success)},
-                              onError: { error in
-                                self.showAlert(title: "Erro", body: "Não foi possível recuperar as Tasks!", theme: Theme.success)}, always: {
-                                    self.hideLoading()
-        })
+        if Reachability.isConnectedToNetwork() {
+            self.showLoading()
+            TasksService().delete(task: result,
+                                  onSuccess: {response in
+                                    self.showAlert(title: "Sucesso", body: "Task excluída com sucesso", theme: Theme.success)},
+                                  onError: { error in
+                                    self.showAlert(title: "Erro", body: "Não foi possível recuperar as Tasks!", theme: Theme.success)}, always: {
+                                        self.hideLoading()
+            })
+        } else {
+            var resultDB = ResultDB()
+            resultDB = realm.object(ofType: ResultDB.self, forPrimaryKey: result.id)!
+            try! realm.write {
+                realm.delete(resultDB)
+            }
+        }
     }
     
 }

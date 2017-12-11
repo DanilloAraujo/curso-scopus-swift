@@ -11,6 +11,7 @@ import BFKit
 import MBProgressHUD
 import SwiftMessages
 import DatePickerDialog
+import RealmSwift
 
 class NewTaskController: UIViewController {
     
@@ -20,6 +21,7 @@ class NewTaskController: UIViewController {
     
     var taskResult = Result()
     var editTask = false
+    let realm = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,13 +61,13 @@ class NewTaskController: UIViewController {
             cancelButtonTitle: "Cancelar",
             defaultDate: date,
             datePickerMode: .date) {
-            (date) -> Void in
-            
-            if let dt = date {
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy-MM-dd"
-                self.taskResult.expirationDate = formatter.string(from: dt)
-            }
+                (date) -> Void in
+                
+                if let dt = date {
+                    let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd"
+                    self.taskResult.expirationDate = formatter.string(from: dt)
+                }
         }
     }
     
@@ -111,24 +113,47 @@ class NewTaskController: UIViewController {
     }
     
     func save() {
-        self.showLoading()
-        TasksService().saveTask(task: self.taskResult, onSuccess: { response in
-            self.showAlert(title: "Sucesso", body: "Task criada com sucesso!", theme: Theme.success)
-        }, onError: { error in
-            self.showAlert(title: "Erro", body: "Ocorreu um erro a incluir task.", theme: Theme.error)
-        }, always: {
-            self.hideLoading()
-        })
+        if Reachability.isConnectedToNetwork(){
+            self.showLoading()
+            TasksService().saveTask(task: self.taskResult, onSuccess: { response in
+                self.showAlert(title: "Sucesso", body: "Task criada com sucesso!", theme: Theme.success)
+            }, onError: { error in
+                self.showAlert(title: "Erro", body: "Ocorreu um erro a incluir task.", theme: Theme.error)
+            }, always: {
+                self.hideLoading()
+            })
+        } else {
+            let myTask = ResultDB()
+            myTask.title = taskResult.title
+            myTask.desc = taskResult.desc
+            myTask.expirationDate = taskResult.expirationDate
+            myTask.isComplete = taskResult.isComplete!
+            try! realm.write {
+                realm.add(myTask)
+            }
+        }
     }
     
     func edit() {
-        self.showLoading()
-        TasksService().editTask(task: self.taskResult, onSuccess: { response in
-            self.showAlert(title: "Sucesso", body: "Task editada com sucesso!", theme: Theme.success)
-        }, onError: { error in
-            self.showAlert(title: "Erro", body: "Ocorreu um erro a editar a task.", theme: Theme.error)
-        }, always: {
-            self.hideLoading()
-        })
+        if Reachability.isConnectedToNetwork(){
+            self.showLoading()
+            TasksService().editTask(task: self.taskResult, onSuccess: { response in
+                self.showAlert(title: "Sucesso", body: "Task editada com sucesso!", theme: Theme.success)
+            }, onError: { error in
+                self.showAlert(title: "Erro", body: "Ocorreu um erro a editar a task.", theme: Theme.error)
+            }, always: {
+                self.hideLoading()
+            })
+        } else {
+            var myTask = ResultDB()
+            myTask = realm.object(ofType: ResultDB.self, forPrimaryKey: self.taskResult.id)!
+            try! realm.write {
+                myTask.title = self.taskResult.title
+                myTask.desc = self.taskResult.desc
+                myTask.expirationDate = self.taskResult.expirationDate
+                myTask.isComplete = self.taskResult.isComplete!
+                realm.add(myTask, update: true)
+            }
+        }
     }
 }
